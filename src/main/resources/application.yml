@@ -1,0 +1,29 @@
+spring:
+  #数据源
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///tmall?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #网页不缓存，便于开发
+  thymeleaf:
+    cache: false
+  #国际化配置路径
+  messages:
+    basename: i18n.login
+
+# MyBatis注解形式扫描实体类路径
+mybatis:
+  type-aliases-package: com.lzy.tmall.bean
+
+# pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
+#项目路径
+server:
+  servlet:
+    context-path: /tmall
