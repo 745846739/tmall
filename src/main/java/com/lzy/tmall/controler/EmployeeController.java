@@ -21,7 +21,6 @@ public class EmployeeController {
         PageHelper.startPage(pageNum,pageSize);
         PageInfo<Employ> pageInfo=new PageInfo<Employ>(employMapper.findAll());
         model.addAttribute("pageInfo",pageInfo);
-
         //获得当前页
         model.addAttribute("pageNum", pageInfo.getPageNum());
         //获得一页显示的条数
@@ -34,31 +33,34 @@ public class EmployeeController {
         model.addAttribute("isLastPage", pageInfo.isIsLastPage());
         return "emp/list";
     }
-
+    //去添加页面
+    @GetMapping("/emp")
+    public String toAdd(){
+        return "emp/add";
+    }
     //添加
     @PostMapping("/emp")
-    public String add(Model model,Employ employ,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
+    public String add(Employ employ){
         employMapper.add(employ);
-        return "emps";
+        return "redirect:/emps";
     }
-
     //去修改页面
     @GetMapping("/emp/{id}")
-    public String toAdd(@PathVariable Integer id,Model model){
+    public String toEdit(@PathVariable Integer id,Model model){
         Employ emp=employMapper.findById(id);
         model.addAttribute("emp",emp);
         return "emp/add";
     }
     //修改
     @PutMapping("/emp")
-    public String edit(Employ employ,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
+    public String edit(Employ employ){
         employMapper.update(employ);
-        return "emps";
+        return "redirect:/emps";
     }
-
+    //删除
     @DeleteMapping("/emp/{id}")
-    public String delete(@PathVariable Integer id,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
-        employMapper.delete(id);
-        return "emps";
+    public String delete(@PathVariable Integer id){
+        employMapper.deleteById(id);
+        return "redirect:/emps";
     }
 }

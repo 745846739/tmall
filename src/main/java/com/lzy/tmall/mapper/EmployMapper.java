@@ -14,10 +14,10 @@ public interface EmployMapper {
     Page<Employ> findAll();
     @Insert("insert into employee values(null,#{name},#{mail},#{birthday})")
     void add(Employ employ);
-    @Delete("delete from employee where id=#{id}")
-    void delete(Integer id);
     @Select("select * from employee where id=#{id}")
     Employ findById(Integer id);
     @Update("update employee set name=#{name},mail=#{mail},birthday=#{birthday} where id=#{id}")
     void update(Employ employ);
+    @Delete("delete from employee where id=#{id}")
+    void deleteById(Integer id);
 }

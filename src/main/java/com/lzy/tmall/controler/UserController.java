@@ -14,16 +14,23 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     IUserService userService;
+    //登录
     @PostMapping("/login")
     public String login(User user, HttpSession session, Model model){
         User user1=userService.login(user);
         if(user1!=null){
             session.setAttribute("user",user1.getUsername());
-            return "home";
+            return "redirect:/home";
         }
         model.addAttribute("msg","用户名或密码错误");
-        return "login";
+        return "redirect:/";
     }
+    //去注册页面
+    @GetMapping("/register")
+    public String toRegister(){
+        return "register";
+    }
+    //注册
     @PostMapping("/register")
     public String register(User user,Model model){
         Boolean b=userService.register(user);
@@ -34,10 +41,7 @@ public class UserController {
         model.addAttribute("msg","注册失败");
         return "register";
     }
-    @GetMapping("/register")
-    public String toRegister(){
-        return "register";
-    }
+    //注销
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");

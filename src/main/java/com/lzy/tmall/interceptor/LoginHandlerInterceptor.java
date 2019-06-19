@@ -13,6 +13,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             return true;
         }
         request.setAttribute("msg","没有权限请登录");
+        request.getRequestDispatcher("/").forward(request,response);
         return false;
     }
 }
