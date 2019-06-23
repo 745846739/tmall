@@ -14,6 +14,7 @@
 
 		<!-- Custom styles for this template -->
 		<link th:href="@{asserts/css/dashboard.css}" rel="stylesheet">
+		<link th:href="@{asserts/css/pagination.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -44,11 +45,9 @@
 
 	<body>
 		<nav th:replace="commons/bar::header"></nav>
-
 		<div class="container-fluid">
 			<div class="row">
 				<nav th:replace="commons/bar::side(activeUri='emps')"></nav>
-
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<h2>员工列表</h2>
 					<a class="btn btn-sm btn-success" th:href="@{/emp}">添加</a>
@@ -68,11 +67,21 @@
 									<td th:text="${#dates.format(emp.birthday, 'yyyy-mm-dd')}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-										<button class="btn btn-sm btn-danger deleteBtn" th:attr="del_uri=@{/emp/}+${emp.id}" >删除</button>
+										<button class="btn btn-sm btn-danger deleteBtn" th:attr="del_uri=@{/emp/}+${emp.id}">删除</button>
 									</td>
 								</tr>
 							</tbody>
 						</table>
+						<ul class="pagination">
+							<li><a href="#">&laquo;</a></li>
+							<li><a th:href="@{/emps(pageNum=1)}">1</a></li>
+							<li><a th:href="@{/emps(pageNum=2)}">2</a></li>
+							<li><a th:href="@{/emps(pageNum=3)}">3</a></li>
+							<li><a th:href="@{/emps(pageNum=4)}">4</a></li>
+							<li><a th:href="@{/emps(pageNum=5)}">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+
 						<!--用于提交delete请求-->
 						<form id="deleteEmpForm"  method="post">
 							<input type="hidden" name="_method" value="delete"/>
@@ -85,15 +94,17 @@
 		<script type="text/javascript" th:src="@{webjars/jquery/3.3.1/jquery.js}"></script>
 		<script type="text/javascript" th:src="@{webjars/popper.js/1.11.1/dist/popper.js}"></script>
 		<script type="text/javascript" th:src="@{webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+		<script type="text/javascript" th:src="@{asserts/js/pagination.min.js}"></script>
 
 		<!-- Icons -->
 		<script type="text/javascript" th:src="@{asserts/js/feather.min.js}"></script>
 		<script>
 			feather.replace()
 		</script>
-		<!--提交删除请求-->
+
 		<script>
 			$(function () {
+				<!--提交删除请求-->
 				$(".deleteBtn").click(function(){
 					$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();
 				});

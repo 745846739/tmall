@@ -5,12 +5,43 @@ spring:
     password: root
     url: jdbc:mysql:///tmall?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    filters: stat,wall
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    useGlobalDataSourceStat: true
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   #网页不缓存，便于开发
   thymeleaf:
     cache: false
   #国际化配置路径
   messages:
     basename: i18n.login
+  #邮件
+  mail:
+    host: smtp.163.com
+    username: lizezil@163.com
+    password: lizezil123
+  #rabbitMQ
+#  rabbitmq:
+#    host: 192.168.10.105
+  #elasticsearch
+#  data:
+#    elasticsearch:
+#      cluster-name: elasticsearch
+#      cluster-nodes: 192.168.10.105:9300
 
 # MyBatis注解形式扫描实体类路径
 mybatis:

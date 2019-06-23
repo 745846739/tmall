@@ -28,7 +28,7 @@ public class EmployeeController {
         //是否是第一页
         model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
         //获得总页数
-        model.addAttribute("totalPages", pageInfo.getPages());
+        model.addAttribute("pages", pageInfo.getPages());
         //是否是最后一页
         model.addAttribute("isLastPage", pageInfo.isIsLastPage());
         return "emp/list";

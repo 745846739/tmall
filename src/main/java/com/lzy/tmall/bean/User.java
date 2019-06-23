@@ -1,16 +1,25 @@
 package com.lzy.tmall.bean;
 
 public class User {
-    private Integer id;
     private String username;
     private String password;
+    private String mail;
+    private Integer isActive=0;
 
-    public Integer getId() {
-        return id;
+    public String getMail() {
+        return mail;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 
     public String getUsername() {

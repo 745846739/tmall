@@ -23,14 +23,14 @@
 			<input type="password" th:name="password" class="form-control" th:placeholder="#{login.password}" required="">
 			<div class="checkbox mb-3">
 				<label>
-          <input type="checkbox" value="remember-me"> [[#{login.remember}]]
+          <input type="checkbox" name="remember"> [[#{login.remember}]]
         </label>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.login}">登录</button>
 			<a th:href="@{/register}" th:text="#{login.register}">注册</a>
 			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-			<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-			<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+			<a class="btn btn-sm" th:href="@{/login(l='zh_CN')}">中文</a>
+			<a class="btn btn-sm" th:href="@{/login(l='en_US')}">English</a>
 		</form>
 
 	</body>
