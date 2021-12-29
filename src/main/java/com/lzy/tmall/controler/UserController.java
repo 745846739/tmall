@@ -2,11 +2,6 @@ package com.lzy.tmall.controler;
 
 import com.lzy.tmall.bean.User;
 import com.lzy.tmall.service.IUserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,31 +33,18 @@ public class UserController {
     //登录
     @PostMapping("/login")
     public String login(User user, String remember, HttpSession session, Model model, HttpServletResponse response){
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        try {
-            subject.login(token);
+        User loginUser=userService.login(user);
+        if(loginUser!=null){
+            session.setAttribute("loginUser",loginUser.getUsername());
+            if(remember!=null){
+                Cookie loginUserCookie = new Cookie("loginUser", loginUser.getUsername());
+                loginUserCookie.setMaxAge(14*24*3600);
+                response.addCookie(loginUserCookie);
+            }
             return "redirect:/home";
-        }catch (UnknownAccountException e){
-            model.addAttribute("msg","用户名不存在");
-            return "login";
-        }catch (IncorrectCredentialsException e){
-            model.addAttribute("msg","密码错误");
-            return "login";
         }
-
-//        User loginUser=userService.login(user);
-//        if(loginUser!=null){
-//            session.setAttribute("loginUser",loginUser.getUsername());
-//            if(remember!=null){
-//                Cookie loginUserCookie = new Cookie("loginUser", loginUser.getUsername());
-//                loginUserCookie.setMaxAge(14*24*3600);
-//                response.addCookie(loginUserCookie);
-//            }
-//            return "redirect:/home";
-//        }
-//        model.addAttribute("msg","用户名或密码错误或未激活");
-//        return "login";
+        model.addAttribute("msg","用户名或密码错误或未激活");
+        return "login";
     }
     //去注册页面
     @GetMapping("/register")
